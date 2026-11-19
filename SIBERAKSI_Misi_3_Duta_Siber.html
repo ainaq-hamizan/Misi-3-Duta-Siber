@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIBERAKSI - Misi 3: Duta Siber</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&display=swap');
+:root{--navy:#12365b;--blue:#236b9b;--yellow:#ffd66b}
+*{box-sizing:border-box}
+body{margin:0;font-family:'Baloo 2',Arial,sans-serif;color:var(--navy);background:#d8f1f2;background-image:radial-gradient(circle,#fff 2px,transparent 3px);background-size:35px 35px}
+header{text-align:center;padding:25px 15px;color:white;background:linear-gradient(120deg,#12365b,#247e9b);border-bottom:7px solid var(--yellow)}
+.brand{color:#ffe39a;font-size:13px;font-weight:800;letter-spacing:3px}
+header h1{font-size:clamp(27px,5vw,43px);margin:5px 0}
+.container{max-width:1100px;margin:20px auto;padding:0 14px 40px}
+.panel{background:#fffffff2;border:3px solid white;border-radius:22px;padding:20px;margin-bottom:18px;box-shadow:0 5px 0 #a8d4d5}
+h2{color:#205e87;margin:0 0 12px}
+.intro{text-align:center}.panda{font-size:65px}
+label{display:block;font-weight:800;margin:12px 0 5px}
+input,textarea{width:100%;border:2px solid #b7dadd;border-radius:12px;padding:11px 13px;font:16px 'Baloo 2',Arial;color:#173e60;background:#f8ffff}
+textarea{resize:vertical;min-height:65px}
+.theme-options,.actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:14px}
+.theme-btn{border:3px solid transparent;width:43px;height:43px;border-radius:50%;cursor:pointer}
+.theme-btn.active{border-color:#12365b;outline:2px solid white}
+button{font:800 16px 'Baloo 2',Arial;border:0;border-radius:13px;padding:12px 18px;cursor:pointer}
+.primary{background:#ffd66b;color:#614717;box-shadow:0 4px #d4a944}
+.secondary{background:#236b9b;color:white;box-shadow:0 4px #17496c}
+.green{background:#68b995;color:#103d35;box-shadow:0 4px #39866b}
+.preview-wrap{background:#d9eef0;border:2px dashed #8bbec4;border-radius:18px;padding:10px;text-align:center}
+canvas{display:block;width:100%;height:auto;max-width:800px;margin:auto;border-radius:10px}
+.hint,.preview-label{font-size:13px;color:#668094}
+.status{text-align:center;font-weight:800;color:#286b99;min-height:28px;margin-top:10px}
+.hidden{display:none!important}
+footer{text-align:center;color:#45677e;padding:20px;font-weight:700}
+@media(max-width:650px){.panel{padding:15px}}
+</style>
+</head>
+<body>
+<header><div class="brand">🐼 SIBERAKSI • DUNIA WIRA SIBER</div><h1>🎨 MISI 3: DUTA SIBER</h1><p>OPERASI CIPTA POSTER DIGITAL</p><p>Sertai Operasi Cipta Poster Digital dan jadilah Duta Siber!</p></header>
+<div class="container">
+<section class="panel intro"><div class="panda">🐼</div><h2>SELAMAT DATANG, DUTA SIBER!</h2><p>Cabaran Duta Siber: hasilkan satu poster digital keselamatan siber yang mengandungi sekurang-kurangnya empat ayat menggunakan kata imbuhan.</p></section>
+<section class="panel"><h2>✏️ Langkah 1: Maklumat Poster</h2>
+<label for="student">Nama murid</label><input id="student" placeholder="Masukkan nama anda">
+<label for="posterTitle">Tajuk poster</label><input id="posterTitle" maxlength="55" value="JADILAH WIRA SIBER!">
+<label for="slogan">Slogan poster</label><input id="slogan" maxlength="90" value="Beringat Sebelum Terkena, Jadilah Hero Siber!">
+<label>Pilih tema warna</label><div class="theme-options">
+<button class="theme-btn active" style="background:#087c91" onclick="setTheme('ocean',this)" title="Biru Siber"></button>
+<button class="theme-btn" style="background:#286b99" onclick="setTheme('blue',this)" title="Biru Wira"></button>
+<button class="theme-btn" style="background:#397d69" onclick="setTheme('green',this)" title="Hijau Selamat"></button>
+<button class="theme-btn" style="background:#765b9b" onclick="setTheme('purple',this)" title="Ungu Kreatif"></button>
+<button class="theme-btn" style="background:#b56b3d" onclick="setTheme('orange',this)" title="Jingga Ceria"></button>
+</div></section>
+<section class="panel"><h2>📝 Langkah 2: Cipta Empat Ayat Wira</h2><p class="hint">Tulis empat ayat lengkap menggunakan kata berimbuhan.</p>
+<label for="sentence1">Ayat 1</label><textarea id="sentence1" placeholder="Contoh: Kita perlu mengamalkan keselamatan ketika menggunakan Internet."></textarea>
+<label for="sentence2">Ayat 2</label><textarea id="sentence2" placeholder="Contoh: Kita mestilah mengelakkan buli siber."></textarea>
+<label for="sentence3">Ayat 3</label><textarea id="sentence3" placeholder="Contoh: Jangan menghantar mesej yang menyakitkan hati rakan."></textarea>
+<label for="sentence4">Ayat 4</label><textarea id="sentence4" placeholder="Contoh: Kita hendaklah melindungi rakan daripada buli siber."></textarea>
+<div class="actions"><button class="primary" onclick="updatePoster()">✨ LIHAT POSTER SAYA</button></div><div class="status" id="formStatus"></div></section>
+<section class="panel"><h2>🖼️ Langkah 3: Pratonton Poster</h2><div class="preview-wrap"><canvas id="posterCanvas" width="1200" height="1500"></canvas><p class="preview-label">Pratonton poster digital anda</p></div><div class="actions"><button class="secondary" onclick="downloadPoster()">📥 MUAT TURUN POSTER PNG</button></div><div class="status" id="posterStatus"></div></section>
+<section class="panel"><h2>🏆 Langkah 4: Dapatkan Sijil Wira Siber</h2><p>Lengkapkan poster terlebih dahulu, kemudian sahkan tugasan untuk membuka sijil penghargaan.</p><div class="actions"><button class="green" onclick="completeMission()">🏅 SAHKAN POSTER & BUKA SIJIL</button></div><div class="status" id="certificateStatus"></div>
+<div id="certificateArea" class="hidden"><div class="preview-wrap"><canvas id="certificateCanvas" width="1400" height="990"></canvas><p class="preview-label">Sijil Penghargaan Duta Siber</p></div><div class="actions"><button class="primary" onclick="downloadCertificate()">📜 MUAT TURUN SIJIL PNG</button><button class="secondary" onclick="printCertificate()">🖨️ CETAK / SIMPAN PDF</button></div></div></section>
+</div><footer>🛡️ SIBERAKSI • Beringat Sebelum Terkena, Jadilah Hero Siber!</footer>
+<script>
+const themes={ocean:{dark:"#07566b",mid:"#087f91",light:"#dff8f5",accent:"#ffd66b"},blue:{dark:"#12365b",mid:"#236b9b",light:"#e5f4ff",accent:"#ffd66b"},green:{dark:"#205b4b",mid:"#438b70",light:"#e6f6e9",accent:"#f5d477"},purple:{dark:"#45366f",mid:"#7863a6",light:"#f0eaff",accent:"#ffe08b"},orange:{dark:"#75432b",mid:"#bd7542",light:"#fff0dc",accent:"#ffdc78"}};
+let currentTheme="ocean",posterReady=false;const $=id=>document.getElementById(id);
+function setTheme(n,b){currentTheme=n;document.querySelectorAll(".theme-btn").forEach(x=>x.classList.remove("active"));b.classList.add("active");updatePoster()}
+function data(){return{name:$("student").value.trim(),title:$("posterTitle").value.trim(),slogan:$("slogan").value.trim(),sentences:[1,2,3,4].map(n=>$("sentence"+n).value.trim())}}
+function rr(c,x,y,w,h,r){c.beginPath();c.roundRect(x,y,w,h,r)}
+function wrap(c,s,x,y,max,line,maxLines=4){let words=s.split(/\s+/),row="",count=0;for(let w of words){let test=row?row+" "+w:w;if(c.measureText(test).width>max&&row){c.fillText(row,x,y);y+=line;row=w;if(++count>=maxLines)return y}else row=test}if(row)c.fillText(row,x,y);return y+line}
+function drawPoster(){let c=$("posterCanvas").getContext("2d"),t=themes[currentTheme],d=data();c.clearRect(0,0,1200,1500);c.fillStyle=t.light;c.fillRect(0,0,1200,1500);
+for(let y=35;y<1500;y+=65)for(let x=35;x<1200;x+=65){c.fillStyle="rgba(20,100,130,.10)";c.beginPath();c.arc(x,y,4,0,7);c.fill()}
+c.fillStyle=t.dark;rr(c,35,35,1130,245,35);c.fill();c.fillStyle=t.accent;c.fillRect(35,260,1130,12);c.textAlign="center";c.fillStyle="#fff";c.font="bold 34px Arial";c.fillText("🐼 SIBERAKSI • DUTA SIBER",600,95);c.font="bold 64px Arial";wrap(c,d.title||"POSTER WIRA SIBER",600,175,1030,75,2);c.fillStyle=t.accent;c.font="bold 27px Arial";wrap(c,d.slogan||"Beringat Sebelum Terkena!",600,235,1050,35,2);c.font="100px Arial";c.fillText("🐼",600,410);c.fillStyle=t.dark;c.font="bold 34px Arial";c.fillText("PESANAN KESELAMATAN SIBER",600,500);
+let pos=[555,750,945,1140];d.sentences.forEach((s,i)=>{let y=pos[i];c.fillStyle="#fff";rr(c,70,y,1060,170,25);c.fill();c.strokeStyle=t.mid;c.lineWidth=5;c.stroke();c.fillStyle=t.accent;c.beginPath();c.arc(135,y+85,35,0,7);c.fill();c.fillStyle=t.dark;c.font="bold 34px Arial";c.fillText(String(i+1),135,y+97);c.textAlign="left";c.font="bold 30px Arial";wrap(c,s||"Ayat Wira "+(i+1),195,y+75,850,42,3);c.textAlign="center"});
+c.fillStyle=t.dark;c.font="bold 27px Arial";c.fillText("NAMA DUTA SIBER: "+(d.name||"________________"),600,1370);c.fillStyle=t.mid;c.font="bold 25px Arial";c.fillText("JADILAH WIRA SIBER, BUKAN PEMBULI SIBER!",600,1430)}
+function updatePoster(){let d=data();drawPoster();posterReady=!!(d.name&&d.title&&d.slogan&&d.sentences.every(s=>s));$("formStatus").textContent=posterReady?"✅ Semua ruangan telah diisi. Poster anda sedia!":"✏️ Lengkapkan nama, tajuk, slogan dan keempat-empat ayat.";$("posterStatus").textContent="Pratonton poster telah dikemas kini.";$("certificateArea").classList.add("hidden");$("certificateStatus").textContent=""}
+function downloadPoster(){updatePoster();if(!posterReady){$("posterStatus").textContent="⚠️ Lengkapkan semua ruangan sebelum memuat turun poster.";return}let a=document.createElement("a");a.download="Poster_Wira_Siber.png";a.href=$("posterCanvas").toDataURL("image/png");a.click();$("posterStatus").textContent="✅ Poster berjaya dimuat turun!"}
+function completeMission(){updatePoster();if(!posterReady){$("certificateStatus").textContent="⚠️ Lengkapkan semua maklumat poster dahulu.";return}drawCert();$("certificateArea").classList.remove("hidden");$("certificateStatus").textContent="🎉 Tahniah! Sijil Duta Siber anda telah dibuka.";$("certificateArea").scrollIntoView({behavior:"smooth",block:"center"})}
+function drawCert(){let c=$("certificateCanvas").getContext("2d"),d=data(),t=themes[currentTheme];c.fillStyle="#fffaf0";c.fillRect(0,0,1400,990);c.strokeStyle=t.dark;c.lineWidth=18;c.strokeRect(25,25,1350,940);c.strokeStyle=t.accent;c.lineWidth=6;c.strokeRect(48,48,1304,894);c.textAlign="center";c.fillStyle=t.dark;c.font="bold 42px Arial";c.fillText("SIBERAKSI • DUNIA WIRA SIBER",700,135);c.font="105px Arial";c.fillText("🏆",700,285);c.font="bold 76px Georgia";c.fillText("SIJIL PENGHARGAAN",700,390);c.fillStyle=t.mid;c.font="bold 36px Arial";c.fillText("DUTA SIBER",700,450);c.fillStyle="#40556a";c.font="30px Arial";c.fillText("Dengan ini diperakui bahawa",700,535);c.fillStyle=t.dark;c.font="bold 58px Georgia";c.fillText(d.name,700,620);c.fillStyle="#40556a";c.font="29px Arial";c.fillText("telah berjaya menyiapkan poster digital bertema",700,690);c.font="bold 33px Arial";c.fillText("KESELAMATAN SIBER",700,745);c.font="25px Arial";c.fillText("dan menyertai misi SIBERAKSI dengan penuh kreativiti.",700,800);c.fillStyle=t.dark;c.font="bold 27px Arial";c.fillText("BERINGAT SEBELUM TERKENA, JADILAH HERO SIBER!",700,875)}
+function downloadCertificate(){let a=document.createElement("a");a.download="Sijil_Duta_Siber.png";a.href=$("certificateCanvas").toDataURL("image/png");a.click()}
+function printCertificate(){let image=$("certificateCanvas").toDataURL("image/png"),w=window.open("","_blank");if(!w){alert("Sila benarkan pop-up untuk mencetak sijil.");return}w.document.write('<!DOCTYPE html><html><head><title>Sijil Duta Siber</title><style>body{margin:0;text-align:center}img{width:100%;max-width:1100px}@page{size:landscape;margin:8mm}</style></head><body><img src="'+image+'" alt="Sijil Duta Siber"><script>window.onload=()=>window.print();<\/script></body></html>');w.document.close()}
+drawPoster();
+</script>
+</body>
+</html>
